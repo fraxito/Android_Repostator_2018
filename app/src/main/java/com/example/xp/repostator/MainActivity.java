@@ -1,6 +1,8 @@
 package com.example.xp.repostator;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,5 +56,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ArrayList<String> listadoRepostajes = new ArrayList<String>();
+        ListView listaVista;
+        SharedPreferences sp = getSharedPreferences("datos", Context.MODE_PRIVATE);
+        int size = sp.getInt("Listado_size", 0);
+        for (int i=1; i<=size; i++){
+            listadoRepostajes.add(sp.getString("Repostaje_"+ i, null));
+        }
+
+        listaVista = (ListView) findViewById(R.id.marcoLista);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                listadoRepostajes
+        );
+        listaVista.setAdapter(arrayAdapter);
+
     }
 }
