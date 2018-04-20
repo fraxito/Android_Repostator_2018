@@ -67,7 +67,7 @@ public class Repostaje extends Fragment {
         editor.putString("precio_" + size, editPrecio.getText().toString());
         editor.putString("kilometros_" + size, editKilometros.getText().toString());
         editor.putString("litros_" + size, editLitros.getText().toString());
-        
+
         editor.putInt("dia_"+size, editFecha.getDayOfMonth());
         editor.putInt("mes_"+size, editFecha.getMonth());
         editor.putInt("anyo_"+size, editFecha.getYear());
