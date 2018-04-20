@@ -66,8 +66,27 @@ public class MainActivity extends AppCompatActivity {
         ListView listaVista;
         SharedPreferences sp = getSharedPreferences("datos", Context.MODE_PRIVATE);
         int size = sp.getInt("Listado_size", 0);
+
+        String precio, kilometros, litros, dia, mes, anyo;
+        double costeTotal;
+
         for (int i=1; i<=size; i++){
-            listadoRepostajes.add(sp.getString("Repostaje_"+ i, null));
+            precio = sp.getString("precio_" + i,"0");
+            kilometros = sp.getString("kilometros_" + i,"0");
+            litros = sp.getString("litros_" + i,"0");
+            costeTotal = Double.valueOf(precio) * Double.valueOf(litros);
+
+            dia = String.valueOf(sp.getInt("dia_"+i,0));
+            mes = String.valueOf(sp.getInt("mes_"+i,0));
+            anyo = String.valueOf(sp.getInt("anyo_"+i,0));
+
+            listadoRepostajes.add(
+                    kilometros + " km "
+                    + litros +  " L "
+                    + precio + " €/L , coste: "
+                    + String.format("%.2f", costeTotal)
+                    + "fecha: " + dia + "-" + mes + "-" + anyo
+            );
         }
 
         listaVista = (ListView) findViewById(R.id.marcoLista);
